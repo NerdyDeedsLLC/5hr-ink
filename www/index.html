@@ -50,6 +50,15 @@ body {
     
     var imageDataArray = [];
     var canvasCount = 24;
+    var duration = 2000;
+    var duration_offset=200;
+    var blur=2.8;
+    var distanceX = 100;
+    var distanceY = 0;
+
+    let codex = {
+        smoke:{cc:24, dt:2000, do:200, bl:2.8, dX:100, dY:0}
+    }
     $("#start-btn").click(function(){
       
       html2canvas($(".content")[0]).then(canvas => {
