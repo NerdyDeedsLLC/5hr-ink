@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="master.js"></script>
+    <script src="../src/vendor/html2canvas.min.js"></script>
+    <script src="../src/vendor/chance.min.js"></script>
+    </head>
+
+    <style>
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #FFF;
+}
+
+img {
+  max-width:80%;
+}
+
+    </style>
+    <body>
+        <div id="canvasTarget" class="initial content">
+            <img src="../src/assets/logo_flat.jpg" width="400" height="162" >
+        </div>   
+        <div id="demo-panel">
+            <button>Go!</button>
+        </div>
+    
+    
+    
+    
+    
+        <script> 
+        
+        var contentTarget = qs('.content');
+        let canvasContext, imageData, bitmap, canvasW, canvasH, pixelCt, slices;
+
+        slices = 10;
+
+        html2canvas(contentTarget)
+        .then(canvas => {
+            canvasContext = canvas.getContext("2d");
+            imageData = canvasContext.getImageData(0, 0, canvas.width, canvas.height);
+            _('canvas.width  = canvas.offsetWidth', canvas.width, canvas.offsetWidth)
+            _('canvas.height  = canvas.offsetHeight', canvas.height, canvas.offsetHeight)
+            // canvas.width  = canvas.offsetWidth;
+            // canvas.height = canvas.offsetHeight;
+            bitmap    = imageData.data;
+            console.log('bitmap',bitmap)
+            canvasW = canvasContext.canvas.width;
+            canvasH = canvasContext.canvas.height;
+            pixelCt = canvasW * canvasH;
+            ppSlice = pixelCt / slices;
+
+            _(bitmap.length / 4 / canvasContext.canvas.width)
+            return canvas;
+        })
+        .then(canvas => {
+            
+        });
+    //     var imageDataArray = [];
+    //     var snapshot='';
+        
+        
+    //     let codex = {
+    //         smoke     : {canvasCount : 24, duration : 2000, animationStagger : 200, blur : 2.8, distanceX : 500, distanceY :  0,   rotation: 0, jitterDistX : 15, jitterDistY : 15, jitterDeg:300}
+    //         ,dust      : {canvasCount : 24, duration : 2000, animationStagger : 200, blur : 0.8, distanceX : 200, distanceY : -100, rotation: 0, jitterDistX : 35, jitterDistY : 35, jitterDeg:10}
+    //         ,dissolve  : {canvasCount : 24, duration : 500, animationStagger  : 100, blur : 2.0, distanceX : 0,   distanceY :  0,   jitterDistX : 15, jitterDistY : 15, jitterDeg:10}
+    //         ,dissapate  : {canvasCount : 10, duration : 3000, animationStagger : 100, blur : 5, distanceX : -300,   distanceY : -100,  rotation: 0, jitterDistX : 80, jitterDistY : 25, jitterDeg:360}
+    //         ,flush  : {canvasCount : 30, duration : 6000, animationStagger : 10, blur : 0, distanceX : 0,   distanceY : 0,  rotation: 1540, jitterDistX : 0, jitterDistY : 0, jitterDeg:0}
+    //     }
+    //     window.addEventListener('load', ()=>{
+    //     Object.entries(codex).forEach(fx=>{
+    //         _(fx)
+    //         qs('#demo-panel').insertAdjacentHTML('beforeEnd', `<button id="cta-${fx[0]}" class="vfxButton">${fx[0].toUpperCase()} it!</button>`);
+    //         qs('#cta-' + fx[0]).addEventListener('click', ()=>{ particulator(fx[0]) });
+    //     })
+    //     })
+        
+    //     const particulator = (fx, TRG=contentTarget) => {
+    //     takeSnapshot();
+    //     fx = codex[fx];
+    //     let {canvasCount, duration, animationStagger, blur, distanceX, distanceY, rotation, jitterDistX, jitterDistY, jitterDeg} = fx;
+    //     html2canvas(TRG).then(canvas => {
+    //         //capture all div data as image
+    //         ctx = canvas.getContext("2d");
+    //         var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    //         var pixelArr = imageData.data;
+    //         createBlankImageData(imageData);
+    //         //put pixel info to imageDataArray (Weighted Distributed)
+    //         for (let i = 0; i < pixelArr.length; i+=4) {
+    //         //find the highest probability canvas the pixel should be in
+    //         let p = Math.floor((i/pixelArr.length) * canvasCount);
+    //         let a = imageDataArray[weightedRandomDistrib(p)];
+    //         a[i]   = pixelArr[i];
+    //         a[i+1] = pixelArr[i+1];
+    //         a[i+2] = pixelArr[i+2];
+    //         a[i+3] = pixelArr[i+3]; 
+    //         }
+    //         //create canvas for each imageData and append to target element
+    //         for (let i = 0; i < canvasCount; i++) {
+    //         let c = newCanvasFromImageData(imageDataArray[i], canvas.width, canvas.height);
+    //         c.classList.add("animating");
+    //         $("body").append(c);
+    //         }
+    //         //clear all children except the canvas
+    //         $(".content").children().not(".animating").fadeOut(duration/3);
+    //         //apply animation
+
+    //         // window.setTimeout(restoreSnapshot, ((0.66 * animationStagger) * $(this).delay((0.66 * animationStagger) * (qsa('.animating').length + 1)) + duration))
+    //         restoreSnapshot()
+
+    //         $(".animating").each( function(index){
+    //         animateBlur($(this),blur,(duration - animationStagger));
+    //         setTimeout(() => {
+    //             animateTransform(
+    //                             $(this),
+    //                             chance.integer({ min: (distanceX-jitterDistX), max: (distanceX+jitterDistX) }),
+    //                             (jitterDistY >= 0) ? chance.integer({ min: (distanceY-jitterDistY), max: (distanceY+jitterDistY) }) : chance.integer({ min: (distanceY+jitterDistY), max: (distanceY-jitterDistY) }),
+    //                             chance.integer({ min: (rotation-jitterDeg),    max: (rotation+jitterDeg) }),
+    //                             ((animationStagger*index)+duration)
+    //                             );
+                                
+    //         }, 70*index); 
+    //         //remove the canvas from DOM tree when faded
+    //         $(this).delay((0.66 * animationStagger) * index).fadeOut((animationStagger*index)+(duration/2),"easeInQuint",()=> {$( this ).remove();});
+    //         });
+    //     });
+    //     function weightedRandomDistrib(peak) {
+    //     var prob = [], seq = [];
+    //     for(let i=0;i<canvasCount;i++) {
+    //         prob.push(Math.pow(canvasCount-Math.abs(peak-i),3));
+    //         seq.push(i);
+    //     }
+    //     return chance.weighted(seq, prob);
+    //     }
+    //     function animateBlur(elem,radius,duration) {
+    //     var r =0;
+    //     $({rad:0}).animate({rad:radius}, {
+    //         duration: duration,
+    //         easing: "easeOutQuad",
+    //         step: function(now) {
+    //             elem.css({
+    //                 filter: 'blur(' + now + 'px)'
+    //             });
+    //         }
+    //     });
+    //     }
+    //     function animateTransform(elem,sx,sy,angle,duration) {
+    //     var td = tx = ty =0;
+    //     $({x: 0, y:0, deg:0}).animate({x: sx, y:sy, deg:rotation}, {
+    //         duration: duration,
+    //         easing: "easeInQuad",
+    //         step: function(now, fx) {
+    //             if (fx.prop == "x") 
+    //             tx = now;
+    //             else if (fx.prop == "y") 
+    //             ty = now;
+    //             else if (fx.prop == "deg") 
+    //             td = now;
+    //             elem.css({
+    //                 transform: 'rotate(' + td + 'deg)' + 'translate(' + tx + 'px,'+ ty +'px)'
+    //             });
+    //         }
+    //     });
+    //     }
+    //     function createBlankImageData(imageData) {
+    //     for(let i=0;i<canvasCount;i++)
+    //     {
+    //         let arr = new Uint8ClampedArray(imageData.data);
+    //         for (let j = 0; j < arr.length; j++) {
+    //             arr[j] = 0;
+    //         }
+    //         imageDataArray.push(arr);
+    //     }
+    //     }
+    //     function newCanvasFromImageData(imageDataArray ,w , h) {
+    //     var canvas = document.createElement('canvas');
+    //         canvas.width = w;
+    //         canvas.height = h;
+    //         tempCtx = canvas.getContext("2d");
+    //         tempCtx.putImageData(new ImageData(imageDataArray, w , h), 0, 0);
+            
+    //     return canvas;
+    //     }
+    //     function restoreSnapshot() {
+    //     if(qs('canvas')) return window.setTimeout(restoreSnapshot, 500);
+    //     contentTarget.className = 'hidden content';
+    //     contentTarget.innerHTML = snapshot;
+    //     contentTarget.className = 'content';
+    //     }
+    //     function takeSnapshot() {
+    //     snapshot = contentTarget.innerHTML.replace(/\.jpg.+?"/, '.jpg?' + Math.random() + '=' + Math.random() + '"');
+    //     }
+    // };
+
+        </script>
+    </body>
+</html>
