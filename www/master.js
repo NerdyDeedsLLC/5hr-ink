@@ -3,12 +3,13 @@ var CONSOLE_ENABLED = true
 
 (function () {
     if(!window.console || !CONSOLE_ENABLED) return;
-    const oldMethods  = {assert:'A',clear:'X',count:null,debug:'D',dir:null,dirxml:null,error:'E',exception:null,group:'G',groupCollapsed:'Gc',groupEnd:'Ge',info:'I',info:'NFO',markTimeline:null,profile:null,profileEnd:null,table:'M',time:null,timeEnd:null,timeStamp:null,trace:'T',warn:'W'}
+    const oldMethods  = {assert:'A',clear:'X',count:null,debug:'D',dir:null,dirxml:null,error:'E',exception:null,group:'G',groupCollapsed:'Gc',groupEnd:'Ge',info:'I',markTimeline:null,profile:null,profileEnd:null,table:'M',time:null,timeEnd:null,timeStamp:null,trace:'T',warn:'W'}
         , newVarients = {bold:'font-weight:bold',red:'color:red;',orange:'color:orange;',yellow:'color:yellow; background-color:black;',green:'color:green;',blue:'color:blue;',purple:'color:purple;',cyan:'color:cyan;',magenta: 'color:magenta;', em:'font-style:italic;',strong:'font-weight:bold;',big:'font-size:125%;',huge:'font-size:200%;',small:'font-size:75%;','styled':''}
         , noOPe    = () => {};
     window._ = Function.prototype.bind.call(console.log, console, ...arguments);
     Object.entries(oldMethods).forEach(kvp=>window[ '_'  + kvp[1]] = (kvp[1] != null) ? Function.prototype.bind.call(console[kvp[0]], console, '%c%s\n', kvp[1], ...arguments) : noOPe)
     Object.entries(newVarients).forEach(kvp=>window['_'  + kvp[0]] = (kvp[1] != null) ? Function.prototype.bind.call(console.log,     console, '%c%s\n', kvp[1], ...arguments) : noOPe)
+    window._R = (...args) => _(...args) || ([...args].length > 1) ? [...args] : args[0];
     if(!INFO_TRACE) console.NFO = noOPe;
 })();
 
