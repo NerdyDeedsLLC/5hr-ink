@@ -216,7 +216,6 @@
             qsa('.particulator-canvas')
             return canvas;
         });
-
         
         // wind, swirl, expand, contract, cloud
             /*
