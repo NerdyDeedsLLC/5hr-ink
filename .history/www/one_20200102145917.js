@@ -52,12 +52,13 @@
             return parseInt(value, 10);
         };
 
-        var scaleCanvasForRetina = (canvas) => new Promise((resolve, reject) => {
-            scaleFactor = backingScale(),
+        var scaleCanvasForRetina = (canvas) => new Promise(resolve, reject) {
+            var scaleFactor = backingScale(),
+                canvasStyle = window.getComputedStyle(canvas);
             canvas.width = parsePixelValue(canvas.width) / scaleFactor;
             canvas.height = parsePixelValue(canvas.height) / scaleFactor;
             resolve(canvas);
-        });
+        };
         var drawHTML = function () {
             var scaleFactor = backingScale();
             rasterizeHTML.drawHTML(input.value, canvas, {

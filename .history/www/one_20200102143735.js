@@ -41,30 +41,6 @@
         propertyCodex['filter']       = ['blur', 'brightness', 'saturate', 'contrast', 'opacity'];
         propertyCodex['webkitFilter'] = propertyCodex['filter'];
         animationOrigins              = ['tl','t','tr','l','m','r','bl','b','br'];
-        scaleFactor = 1;
-        var backingScale = function () {
-            if (window.devicePixelRatio && window.devicePixelRatio > 1) {
-                return window.devicePixelRatio;
-            }
-            return 1;
-        };
-        var parsePixelValue = function (value) {
-            return parseInt(value, 10);
-        };
-
-        var scaleCanvasForRetina = (canvas) => new Promise((resolve, reject) => {
-            scaleFactor = backingScale(),
-            canvas.width = parsePixelValue(canvas.width) / scaleFactor;
-            canvas.height = parsePixelValue(canvas.height) / scaleFactor;
-            resolve(canvas);
-        });
-        var drawHTML = function () {
-            var scaleFactor = backingScale();
-            rasterizeHTML.drawHTML(input.value, canvas, {
-                zoom: scaleFactor
-            });
-        };
-        
 
         var contentTarget = qs('.content'),
             contentMarkup = contentTarget.innerHTML,
@@ -78,13 +54,11 @@
         
         let canvasContext, imageData, bitmap, canvasW, canvasH, pixelCt, pxlsSlc, slices, optimizedMap, pixelMaps, 
         
-        
         animationChain  = [];
         numCanvases     = 12;
-
-       
+        
         var rndOffSet = ''
-        var weights = [...new Array(4).fill(0), ...new Array(3).fill(1), 2,2,2];
+        var weights = [...new Array(4).fill(0), ...new Array(3).fill(1), 1,1,1];
         for(i=0; i<100; i++) rndOffSet += '|' + Math.floor(Math.random() * 100) + '|';
         rndOffSet = rndOffSet.replace(/\|(\d+?)\|/g, (m,r)=>`000${r},`.slice(-3)).split(',');
 
@@ -201,7 +175,6 @@
         
         
          html2canvas(contentTarget)
-         .then(canvas=>scaleCanvasForRetina(canvas))
         .then(canvas => {
             canvasContext = canvas.getContext("2d");
             imageData     = canvasContext.getImageData(0, 0, canvas.width, canvas.height);

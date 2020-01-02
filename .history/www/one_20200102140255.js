@@ -5,8 +5,8 @@
            ,dissapate : {canvasCount : 10, duration : 3.00, animationStagger : 100, blur : 5.0, translateX : -300, translateY : -100, rotation:    0, jitterBlur : 0, jitterTranslateX : 80, jitterTranslateY : 25, jitterRotation : 360}
            ,flush     : {canvasCount : 30, duration : 6.00, animationStagger :  10, blur : 0.0, translateX :    0, translateY :    0, rotation: 1540, jitterBlur : 0, jitterTranslateX :  0, jitterTranslateY :  0, jitterRotation : 180}
            ,inhale    : {canvasCount : 16, duration : 0.50, animationStagger :  10, jitterAnimationStagger : 5, scale: 0.95, jitterScale: '+0.5', blur: '0.25px', jitterBlur: '0.25px' }
-           ,burst     : {direction: 'reverse', canvasCount : 16, duration : 0.25, jitterDuration : 0.125, animationStagger :  0, jitterAnimationStagger : 0, scale: 4.5, jitterScale:3, blur: '0.5px', jitterBlur: '0.5px', saturate:5, brightness:3, contrast:3, opacity:0,
-           translateX : '40px', jitterTranslateX : '40px', translateY : '0px', jitterTranslateY : '60px',  }
+        //    ,burst     : {direction: 'reverse', canvasCount : 16, duration : 0.25, jitterDuration : 0.125, animationStagger :  0, jitterAnimationStagger : 0, scale: 4.5, jitterScale:3, blur: '0.5px', jitterBlur: '0.5px', saturate:5, brightness:3, contrast:3, opacity:0,
+        //    translateX : '40px', jitterTranslateX : '40px', translateY : '0px', jitterTranslateY : '60px',  }
        }
 
        /* cvx.style.transition = (1+ (Math.random() - 0.5)) * duration + 's all ease-out'
@@ -41,30 +41,6 @@
         propertyCodex['filter']       = ['blur', 'brightness', 'saturate', 'contrast', 'opacity'];
         propertyCodex['webkitFilter'] = propertyCodex['filter'];
         animationOrigins              = ['tl','t','tr','l','m','r','bl','b','br'];
-        scaleFactor = 1;
-        var backingScale = function () {
-            if (window.devicePixelRatio && window.devicePixelRatio > 1) {
-                return window.devicePixelRatio;
-            }
-            return 1;
-        };
-        var parsePixelValue = function (value) {
-            return parseInt(value, 10);
-        };
-
-        var scaleCanvasForRetina = (canvas) => new Promise((resolve, reject) => {
-            scaleFactor = backingScale(),
-            canvas.width = parsePixelValue(canvas.width) / scaleFactor;
-            canvas.height = parsePixelValue(canvas.height) / scaleFactor;
-            resolve(canvas);
-        });
-        var drawHTML = function () {
-            var scaleFactor = backingScale();
-            rasterizeHTML.drawHTML(input.value, canvas, {
-                zoom: scaleFactor
-            });
-        };
-        
 
         var contentTarget = qs('.content'),
             contentMarkup = contentTarget.innerHTML,
@@ -78,11 +54,9 @@
         
         let canvasContext, imageData, bitmap, canvasW, canvasH, pixelCt, pxlsSlc, slices, optimizedMap, pixelMaps, 
         
-        
         animationChain  = [];
         numCanvases     = 12;
-
-       
+        
         var rndOffSet = ''
         var weights = [...new Array(4).fill(0), ...new Array(3).fill(1), 2,2,2];
         for(i=0; i<100; i++) rndOffSet += '|' + Math.floor(Math.random() * 100) + '|';
@@ -134,9 +108,8 @@
             if(minMax === 'max') return _R(/^\-/.test(jitter) ? baseValue : baseValue + (1 * cleanJitter));
         }
         const prepareAnimationSequence = (fxObject=activeCodex||codexDefaults) => {
-        console.log('fxObject :', fxObject);
             const toSentenceCase = (str) => str.slice(0,1).toUpperCase() + str.slice(1);
-            activeCodex = Object.assign({}, codexDefaults, fxCodex[fxObject])
+            activeCodex = Object.assign({}, codexDefaults, fxObject)
             console.log('activeCodex :', activeCodex);
             [...propertyCodex.transform, ...propertyCodex.filter].forEach(fx=>{
                 console.log('fx :', fx, activeCodex[fx]);
@@ -201,7 +174,6 @@
         
         
          html2canvas(contentTarget)
-         .then(canvas=>scaleCanvasForRetina(canvas))
         .then(canvas => {
             canvasContext = canvas.getContext("2d");
             imageData     = canvasContext.getImageData(0, 0, canvas.width, canvas.height);

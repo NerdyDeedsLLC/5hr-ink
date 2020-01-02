@@ -41,7 +41,7 @@
         propertyCodex['filter']       = ['blur', 'brightness', 'saturate', 'contrast', 'opacity'];
         propertyCodex['webkitFilter'] = propertyCodex['filter'];
         animationOrigins              = ['tl','t','tr','l','m','r','bl','b','br'];
-        scaleFactor = 1;
+
         var backingScale = function () {
             if (window.devicePixelRatio && window.devicePixelRatio > 1) {
                 return window.devicePixelRatio;
@@ -52,12 +52,13 @@
             return parseInt(value, 10);
         };
 
-        var scaleCanvasForRetina = (canvas) => new Promise((resolve, reject) => {
-            scaleFactor = backingScale(),
-            canvas.width = parsePixelValue(canvas.width) / scaleFactor;
-            canvas.height = parsePixelValue(canvas.height) / scaleFactor;
-            resolve(canvas);
-        });
+        var scaleCanvasForRetina = function (canvas) {
+            var scaleFactor = backingScale(),
+                canvasStyle = window.getComputedStyle(canvas);
+            canvas.width = parsePixelValue(canvasStyle.width) * scaleFactor;
+            canvas.height = parsePixelValue(canvasStyle.height) * scaleFactor;
+            return canvas;
+        };
         var drawHTML = function () {
             var scaleFactor = backingScale();
             rasterizeHTML.drawHTML(input.value, canvas, {
