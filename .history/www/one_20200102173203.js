@@ -41,7 +41,7 @@
         propertyCodex['filter']       = ['blur', 'brightness', 'saturate', 'contrast', 'opacity'];
         propertyCodex['webkitFilter'] = propertyCodex['filter'];
         animationOrigins              = ['tl','t','tr','l','m','r','bl','b','br'];
-        scaleFactor = 0.75;
+        scaleFactor = 1;
         var backingScale = function () {
             if (window.devicePixelRatio && window.devicePixelRatio > 1) {
                 return window.devicePixelRatio;
