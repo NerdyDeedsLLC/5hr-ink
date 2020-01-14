@@ -12,15 +12,11 @@
 @import url("https://fonts.googleapis.com/css?family=Parisienne|Itim&display=swap");
 html, body {
   font: 13px helvetica;
-  position: relative;
-  box-sizing: border-box;
 }
 
 *, *::before, *::after {
   position: relative;
-}
 
-* {
   box-sizing: border-box;
 }
 body {
@@ -55,40 +51,45 @@ canvas {
 
 
 main {
-  border: 1px solid black;
-  width: 100%;
+  border: 6px double #AD8F5A;
+  background:wheat;
   width: 740px;
   height: 600px;
   text-align: center;
   padding: 0;
-  z-index: -1;
-  left: 50%;
-  -webkit-transform: translatex(-50%);
-          transform: translatex(-50%);
+  z-index: 1;
+  left: calc(50% - 370px);
+  position: absolute;;
+  
 }
-main img {
+main span {
   position: absolute;
   z-index: 20;
+  left:0;
   -webkit-transform: scale(0.8) translate(30px, 20px);
           transform: scale(0.8) translate(30px, 20px);
 }
-main svg {
-  min-width: 700px;
+main > .sky > img {
+  top:224px;
+  left:-4px;
+  transform:rotate(1deg);
+  position:absolute;  
 }
 main span::after {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  width: 170px;
-  left: 105px;
-  top: -83px;
-  background: black;
-  height: 100%;
-  border-radius: 100%;
-  z-index: 1;
-  opacity: 0.5;
-  -webkit-filter: blur(5px);
-          filter: blur(5px);
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: -15px;
+    top: 430px;
+    background: #000;
+    height: 44px;
+    border-radius: 100%;
+    z-index: -1;
+    opacity: 0.5;
+    /* -webkit-filter: blur(5px);
+    filter: blur(5px); */
+    /* transform: rotate(-5deg); */
+    width: 256px;
 }
 main div.sky {
   content: '';
@@ -96,10 +97,11 @@ main div.sky {
   position: absolute;
   width: 700px;
   height: 400px;
-  left: 20px;
-  top: 50px;
+  left: 16px;
+  top: 47px;
   background: linear-gradient(180deg, #70adc1 0, #eefafe 100%);
   border-radius: 1000% 1000% 0 0;
+  border:3px solid #AD8F5A;
   z-index: -1;
 }
 main p {
@@ -109,67 +111,158 @@ main p {
   letter-spacing: 0.25px;
   font-family: 'Itim';
   font-size: 16px;
+  background:#FFFA;
+  
 }
 main p b {
   float: left;
-  border: 7px ridge gold;
   font-family: 'Parisienne', cursive;
   font-weight: 900;
-  font-size: 84px;
-  line-height: 76px;
+  font-size: 100px;
+  line-height: 110px;
+  text-indent: 10px;
   color: #ffc500;
-  text-shadow: 2px 2px 0 #ffda00, -2px -2px 0 #c69000,  4px 4px 0 #303000, -4px 4px 0 #303000, 4px -4px 0 #ffc700, -4px -4px 0 #ffc700, 4px 0 0 #303000, -4px 0 0 #303000, 0 -4px 0 #ffc700, 0 -4px 0 #ffc700;
-  background: #f3f2a5;
+  text-shadow: 2px 2px 0 #ffda00, -2px -2px 0 #c69000,  4px 4px 0 #303000, -3px 4px 0 #303000, 4px -3px 0 #ffc700, -3px -3px 0 #ffc700, 4px 0 0 #303000, -4px 0 0 #303000, 0 -4px 0 #ffc700, 0 -4px 0 #ffc700, 5px 5px 7px #000, 5px 5px 7px #000;
+  background: url('illumination.png') no-repeat;
+  background-size:contain;
+  width:120px;
+  height:120px;
   letter-spacing: -10px;
   font-style: italic;
-  margin: -5px 24px 30px 0;
+  margin: -22px 10px -15px -15px;
 }
 main p:first-of-type {
-  top: -55px;
-  background: #FFFC;
-  padding: 10px 100px 0 0;
+  top: -45px;
+  left:12px;
+  padding: 10px 40px 0 0;
   z-index: 100;
   border-radius: 20px;
 }
 main p:last-of-type {
-  top: 400px;
-  right: 0;
-  background: #FFFC;
-  padding: 10px 100px 0px 0;
+  top: 415px;
+  right: 10px;
+  padding: 5px 70px 0px 0;
   z-index: 100;
   border-radius: 20px;
 }
+main p:last-of-type b {
+    text-indent: 24px;
+    margin-right:4px;
+  }
 main p code {
   background-color: #0002;
 }
 
+nav {
+  position:fixed;
+  bottom:0;
+  border:1px solid black;
+  left:0;
+}
 
+nav > section {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width:100vw;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items:flex-start;
+  background:#EEE;
+  width:100%;
+  
+}
+
+nav > #controls {
+  padding-top:8px;
+}
+
+nav > #controls > *{
+  min-width:220px;
+  max-width:220px;
+  flex:1 1 0%;
+  padding:5px;
+  margin:5px;
+  white-space:nowrap;
+}
+
+
+nav > #controls > div.jitterdB{
+  background:white;
+  border:1px solid #aaa;
+  border-right: 1px solid transparent;
+  margin:5px 0 5px 10px;
+}
+
+nav > #controls > div.jitterdE{
+  background:white;
+  border:1px solid #aaa;
+  border-left: 1px solid transparent;
+  margin:5px 10px 5px 0;
+}
+
+nav > #controls > div.control {
+  border: 1px solid #aaa;
+  margin:5px 5px 5px 10px ;
+  max-width:215px;
+  min-width:215px;
+  background:white;
+}
+nav > #controls > div.control:first-of-type {
+  margin-left:10px;
+}
+nav > #controls > div > label {width: 140px; display:inline-block}
+
+
+nav > #controls > div > .val-field-s { width:40px;}
+nav > #controls > div > .val-field { width:60px;}
+nav > #controls > section { min-width:100%; border-bottom:1px solid black;}
+
+#shortcuts {
+  padding:15px 10px 7px 10px ;
+  border-bottom:1px dotted #999;
+  
+  display:flex;
+  width:100vw;
+}
+
+#shortcuts > button {
+  flex:auto;
+  margin:10px;
+
+}
     </style>
     <body>
-        <!-- <img src="../src/assets/logo_flat.jpg" width="400" height="162" > -->
-        <main id="canvasTarget" class="initial content">
-                <div class="sky">
-                        <span>
-                        <img class="wizard" src="./wizard.png">
-                        </span>
-                        <svg class="castle-keep" xmlns="http://www.w3.org/2000/svg" viewBox="0 -400 1097 806"><defs></defs><defs><filter id="a"><feFlood flood-color="#00F2FF" flood-opacity="1" result="floodOut"></feFlood><feComposite in="floodOut" in2="SourceGraphic" operator="atop" result="compOut"></feComposite><feBlend in="compOut" in2="SourceGraphic"></feBlend></filter></defs><path fill="#C9BD8F" fill-rule="evenodd" d="M953 183c27 10 138 68 70 86-52 14-18 54-150 103-59 21-198-21-297-14-588 41-413-49-455-60-18-4-64-9-61-29 6-30 0-27 108-47 43-8-149-19 52-47 164-23 232-27 247-27 97 0 130-37 191-7 58 29 232 17 295 42z"></path><path fill="#00F2FF" fill-rule="evenodd" d="M937 242c-46 28-102 43-198 21-47-11-100-8-147-2-34 4-100 5-130-11-94-29-99-2-133-16-69-28 18-41 18-41l38-8c-3 5-3 8-1 9a704 704 0 00245 16c57 23 209 23 281-7v-1c38 1 59 8 64 20 6 17-14 6-37 20z"></path><g filter="url(#a)"><path fill="#00F2FF" fill-rule="evenodd" d="M937 242c-46 28-102 43-198 21-47-11-100-8-147-2-34 4-100 5-130-11-94-29-185-9-219-23-70-28 104-34 104-34l38-8c-3 5-3 8-1 9a704 704 0 00245 16c57 23 209 23 281-7l-10-17c38 1 71 7 74 36 1 18-14 6-37 20z"></path></g><path fill="#009905" fill-rule="evenodd" stroke="#000" stroke-width="2" d="M384 194c-12-4 77-131 182-136 173-6 262 114 260 114-107 41-345 56-442 22z"></path><path fill="#006803" fill-rule="evenodd" d="M438 148c81 29 242 28 376 10l12 14c-107 41-345 56-442 22-8-3 28-60 84-99-24 28-36 52-30 53z"></path><path fill="#00D007" fill-rule="evenodd" stroke="#000" stroke-width="2" d="M910 203c-8-12-26-63-133-65-128-2-149 72-148 72 57 23 209 23 281-7z"></path><path fill="#00A606" fill-rule="evenodd" d="M910 203c-3-4-2-5-12-4-324 38-202-50-194-52-64 19-75 63-75 63 57 23 209 23 281-7z" opacity=".5"></path><path fill="#008B05" fill-rule="evenodd" d="M754 190c-47-13-52-11-11-25h-7c-8 4-26 17-33 28-44-11-39-5-45-13 11-13 34-24 63-31 29-8 55-8 67-9a596 596 0 0137-1l3 2 1 1c2 3 3 5 2 7h-1v1l-2 1-6 3c-70 17-34 17-39 24s-23 4-29 12z"></path><path fill="#898989" fill-rule="evenodd" stroke="#000" stroke-width="2" d="M845 47s1 6-10 6l-6 1 6 95h0c0 2-28 9-48 5-9-2-8-3-8-5h-1l12-95c-21-3-23-6-23-6l-4-33h86l-4 32z"></path><path fill="#737373" fill-rule="evenodd" d="M829 54s-31 16-31 22c-4 63 37 73 37 73-18 4-39 8-51 3l-6-3 12-95c-21-3-22-6-22-6l-3-27s3 13 11 16c0 3 36 12 53 17z"></path><path fill="#636363" fill-rule="evenodd" stroke="#000" stroke-width="2" d="M844 13l3 2 2-6 1 3-2 8-11 3 1-8-10 1-1 8-13 1v-8h-15v8l-13-1v-8l-11-1 2 8-13-3-1-7V8l2 7 3-1-1-8 7-2 1 8 8-1-1-9h9l1 8 7-1V1h10l1 8h8V1l12 1-2 8 7 1 1-8 9 3-1 7z"></path><path fill="#3E3E3E" fill-rule="evenodd" d="M796 61c-7 0-5-8-5-8l38 1-33 7zm19 18l9 20s3 2-9 1c-14-17 0-21 0-21z"></path><path fill="#B7B7B7" fill-rule="evenodd" stroke="#000" stroke-width="2" d="M840 69a12 12 0 007 3l-1 3c-4 5-20-3-24-2-9 2-11 16-6 24 26 14 66-1 63-25 5-1 8 0 10-3 0-10 3-20 1-35l-50 1a81 81 0 000 34z"></path><path fill="#A3A3A3" fill-rule="evenodd" d="M888 70c0 3-36 9-45 1l-3-2-1-7 4 4c11 9 29 9 45 4zm-9 2c3 24-36 39-62 25-3-4-4-9-3-13 0 2 1 5 3 7 26 14 65 5 62-19" opacity=".4"></path><path fill="#636363" fill-rule="evenodd" stroke="#000" stroke-width="2" d="M840 39l3 2v-5l7 1v5l9 1v-6h11v6l9-1v-5l10-3v6l2-10-4-2v6l-6-1 1-6-7-1v6h-5l-1-6h-7v5l-6 1v-6l-8 1 1 5-4 1-1-6-5 2 1 10z"></path><path fill="#3E3E3E" fill-rule="evenodd" d="M848 72c7 6 32 0 32 0s-13 28-41 10c-16-11 9 1 9-10z" opacity=".5"></path><path fill="#5F3816" fill-rule="evenodd" stroke="#000" stroke-width="2" d="M802 154s3-35-10-31c-11 3-8 29-8 29 2 1 2 2 5 2 5 1 9 2 13 0z"></path><path fill="#3E3E3E" fill-rule="evenodd" d="M792 123c-11 3-8 29-8 29l2 1-4-1s-3-26 8-30l5 1h-3z"></path><path fill="#A1A1A1" fill-rule="evenodd" d="M798 62c7 0 6 15 6 16h-14s1-16 8-16z"></path><path fill="#636363" fill-rule="evenodd" d="M797 63c7 0 6 14 6 15v1c-4 1-12 0-14-1 0 1 1-15 8-15z"></path><path fill="#4A4A4A" fill-rule="evenodd" d="M796 65c7-1 5 12 5 13v-1h-10s0-12 5-12z"></path><path fill-rule="evenodd" d="M801 77h-8c0-1 0-12 6-12 3 3 2 12 2 12z"></path><path fill-rule="evenodd" stroke="#000" d="M794 123l-3 31" opacity=".2"></path><path fill="#B5B5B5" fill-rule="evenodd" d="M796 145c-2 1-3-1-3-2l2-2 2 2-1 2zm0-2l-1-1-1 1s0 2 2 1v-1zm-7 0c-2 1-2 0-2-2 0-1 0-2 2-2l1 2-1 2zm1-2l-1-1-1 1c0 1 0 2 1 1l1-1z"></path></svg>
-                        <p>
-                        <b>B</b>ehold the web wizard, (Watch him juggle, with ease)<br>
-                        This complex layered scene of Front-end technologies!<br>
-                        His SVG keep 'fore a gradient stands,<br>
-                        and that's a alpha-layer'd PNG wand he waves in his hands!
-                        </p>
-                        <p>
-                        <b>T</b>he layers are <code>position</code>'d with <code>absolute</code> care,<br>
-                        (the text's Sass-formatting had better damn well be there).<br>
-                        Taken together, it's enough to cause fits...<br>
-                        So go change some settings, and blow it to bits.
-                        </p>
-                        </div>
-        </main>   
-        <div id="demo-panel">
+      <!-- <img src="../src/assets/logo_flat.jpg" width="400" height="162" > -->
+      <main id="canvasTarget" class="initial content">
+        <div class="sky">
+          <span>
+            <img class="wizard" src="./wizard.png">
+          </span>
+          <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='702.7' height='265.4'%3E%3Cdefs/%3E%3Cpath fill='%23AD8F5A' fill-rule='evenodd' d='M638 125c72 3 81 50 34 63-36 10-13 37-104 71-42 16-138-14-207-9-410 28-288-35-318-42-12-3-44-6-42-20 4-21 0-19 75-33 30-6-104-13 36-33 115-16 162-19 173-19 67 1 90-25 132-5s174-2 221 27z'/%3E%3Cpath fill='%2300F2FF' fill-rule='evenodd' stroke='%237FD8B9' stroke-width='3.5' d='M622 170c-33 20-74 31-145 15-34-8-72-6-107-2-25 4-73 4-95-7-69-21-72-2-97-12-51-21 16-42 16-42l65-7 299 5s97 10 91 35c-3 13-10 4-27 15z'/%3E%3Cpath fill='%2300F2FF' fill-rule='evenodd' stroke='%237FD8B9' stroke-width='3.5' d='M612 166c-32 17-72 27-139 13-33-7-70-5-103-2-24 3-70 4-91-6-66-18-69-2-93-11-49-18 16-36 16-36 9-2 61-5 61-5l287 3s93 9 87 31c-2 11-9 3-25 13z'/%3E%3Cpath fill='%23009905' fill-rule='evenodd' stroke='%23000' stroke-width='1.4' d='M226 135c-8-2 54-91 128-94 120-5 182 79 181 79-75 28-241 39-309 15z'/%3E%3Cpath fill='%23006803' fill-rule='evenodd' d='M264 104c56 19 169 19 262 6l8 10c-74 28-240 39-308 15-5-1 20-41 59-69-16 20-25 36-21 38z'/%3E%3Cpath fill='%2300D007' fill-rule='evenodd' stroke='%23000' stroke-width='1.4' d='M593 141c-6-8-18-44-93-45-89-1-103 50-102 50 39 17 145 17 195-5z'/%3E%3Cpath fill='%2300A606' fill-rule='evenodd' d='M593 141c-2-2-1-3-8-2-226 26-141-35-135-37-45 14-53 44-52 44 39 17 145 17 195-5z' opacity='.5'/%3E%3Cpath fill='%23008B05' fill-rule='evenodd' d='M484 133c-32-9-36-8-7-18h-5c-6 3-18 12-23 19-31-7-27-3-31-8 7-9 23-17 43-22 20-6 39-5 47-6a417 417 0 0128 0l1 1c1 2 2 3 1 5h-1v1l-1 1-5 1c-48 12-23 12-26 17-4 5-17 3-21 9z'/%3E%3Cpath fill='%23898989' fill-rule='evenodd' stroke='%23000' stroke-width='1.4' d='M548 33s1 4-7 4h-5l5 67h0c0 1-20 6-34 3-6-1-5-2-5-3h-1l8-67c-14-1-15-4-15-4l-3-22h59l-2 22z'/%3E%3Cpath fill='%23737373' fill-rule='evenodd' d='M537 37s-22 12-22 16c-3 44 26 51 26 51-12 3-27 6-36 2l-4-2 9-67c-15-1-16-4-16-4l-2-18s2 9 8 11c0 2 24 8 37 11z'/%3E%3Cpath fill='%23636363' fill-rule='evenodd' stroke='%23000' stroke-width='1.4' d='M547 9l2 1 1-3 1 1-1 6-8 2 1-6-7 1-1 6h-9v-5h-10v5h-9v-5l-8-2 1 6-9-2-1-5 1-3 1 5 2-1-1-6 5-1 1 5 6-1-1-5 6-1 1 6h5V1h7v5h6V1l8 1-1 5 5 1V2l7 2-1 5z'/%3E%3Cpath fill='%233E3E3E' fill-rule='evenodd' d='M513 42c-4 1-3-5-3-5l26 1-23 4zm14 13l6 14s2 1-6 1c-10-12 0-15 0-15z'/%3E%3Cpath fill='%23B7B7B7' fill-rule='evenodd' stroke='%23000' stroke-width='1.4' d='M544 48a9 9 0 005 2v3c-3 3-15-3-18-2-5 1-7 11-3 17 18 10 45-1 43-18 4 0 6 0 7-2 1-7 3-14 1-24h-35a57 57 0 000 24z'/%3E%3Cpath fill='%23A3A3A3' fill-rule='evenodd' d='M578 49c0 2-26 6-31 0l-3-1-1-5 3 3c8 7 20 6 32 3zm-7 1c3 17-25 28-43 18-2-3-2-6-2-10l2 5c18 10 46 4 43-13' opacity='.4'/%3E%3Cpath fill='%23636363' fill-rule='evenodd' stroke='%23000' stroke-width='1.4' d='M545 27l2 2-1-4 5 1v3l7 1-1-4h8v4l6-1v-3l8-2v4l1-7-3-1v3h-4v-4l-4-1v4h-4v-4h-5v4h-4v-4l-6 1 1 4h-3l-1-4-3 1c-1 1 1 7 1 7z'/%3E%3Cpath fill='%233E3E3E' fill-rule='evenodd' d='M550 50c5 5 22 0 22 0s-9 20-29 7c-11-7 7 1 7-7z' opacity='.5'/%3E%3Cpath fill='%235F3816' fill-rule='evenodd' stroke='%23000' stroke-width='1.4' d='M518 108s2-25-7-22c-8 2-6 20-6 20l4 2h9z'/%3E%3Cpath fill='%233E3E3E' fill-rule='evenodd' d='M511 86c-8 2-6 20-6 20l2 1-3-1s-2-18 6-21l3 1h-2z'/%3E%3Cpath fill='%23A1A1A1' fill-rule='evenodd' d='M515 43c5 0 4 11 4 11v1l-9-1c0 1 0-11 5-11z'/%3E%3Cpath fill='%23636363' fill-rule='evenodd' d='M514 44c5 0 4 10 4 11h-9s0-11 5-11z'/%3E%3Cpath fill='%234A4A4A' fill-rule='evenodd' d='M514 45c5 0 3 9 3 9 0 1 0 0 0 0h-7s0-9 4-9z'/%3E%3Cpath fill-rule='evenodd' d='M517 54h-6c0-1 1-8 4-8 3 1 2 7 2 8z'/%3E%3Cpath fill-rule='evenodd' stroke='%23000' stroke-width='.7' d='M512 85l-2 22' opacity='.2'/%3E%3Cpath fill='%23B5B5B5' fill-rule='evenodd' d='M513 101c-1 1-1 0-1-1l1-2 1 2-1 1zm1-1l-1-1v1h1zm-5 0l-2-1 1-2 2 2-1 1zm0-1l-1-1c0 1 0 2 1 1z'/%3E%3C/svg%3E" />
+
+          <p>
+            <b>B</b>ehold the web wizard: Watch him juggle - with ease! -<br>
+            This complex, layered scene of Front-end technol'gies!<br>
+            His SVG tower 'fore a gradient stands,<br>
+            as an alpha-layer'd PNG-wand waves in his hand!
+          </p>
+          <p>
+            <b>E</b>ach layer is <code>position</code>'d with <code>absolute</code> care,<br>
+            (so the transpiled Sass had best damn well be there).<br>
+            All is formatted, and everything fits...<br>
+            Now go change some settings, then blow it to bits.
+          </p>
+
         </div>
-    
-        <script src="one.js"></script>
+      </main>
+      <div id="demo-panel">
+      </div>
+
+      <script src="one.js"></script>
+      <nav>
+        <section id="shortcuts"></section>
+        <section id="controls"></section>
+      </nav>
     </body>
 </html>
